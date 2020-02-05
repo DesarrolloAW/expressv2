@@ -1,10 +1,12 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const request = require("request");
+const cors = require("cors");
 
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get('/stations', function (req, res) {
     console.log("[" + new Date() + "]" + " GET " + req.url);
@@ -27,7 +29,7 @@ app.post("/station", function (req, res) {
     console.log("[" + new Date() + "]" + " POST " + req.url);
     var station = new Object();
     if (req.body.name && req.body.province && req.body.canton
-        && req.body.parish && req.body.lat && req.body.lng) {
+        && req.body.parish && req.body.lat && req.body.lng && req.body.id) {
         station.name = req.body.name;
         station.province = req.body.province;
         station.canton = req.body.canton;
@@ -37,6 +39,7 @@ app.post("/station", function (req, res) {
         station.coord.lat = req.body.lat;
         station.obs = 0;
         station.last_obs = "not data";
+        station.id = req.body.id;
         var options = {
             method: 'POST',
             url: 'https://dawproject-f367.restdb.io/rest/stations',

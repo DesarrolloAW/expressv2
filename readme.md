@@ -1,6 +1,7 @@
 ## SERVIDOR NOSQL
 
 # Dependencias
-1. express
-2. body-parser
-3. request
+1. npm install express
+2. npm install body-parser
+3. npm install request
+4. npm install cors
